@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 import httpx
 from pydantic import BaseModel
@@ -7,10 +7,7 @@ from red_team.config import Settings
 
 
 class TargetResponse(BaseModel):
-    """Normalized shape the evaluators work against, regardless of which
-    system-under-test's raw response format looked like."""
-
-    raw: Dict[str, Any]
+    raw: dict[str, Any]
     answer: str
     guardrail_triggered: Optional[str] = None
     grounded: Optional[bool] = None
@@ -19,14 +16,6 @@ class TargetResponse(BaseModel):
 
 
 class AgenticAskAdapter:
-    """Adapter for this project's own /agentic-ask endpoint.
-
-    Kept as a small, separate class specifically so a different system under
-    test (a different RAG API, a different response schema) only needs a new
-    adapter implementing `ask()` — the test cases, evaluators, and runner
-    don't change.
-    """
-
     def __init__(self, settings: Settings):
         self._settings = settings
 

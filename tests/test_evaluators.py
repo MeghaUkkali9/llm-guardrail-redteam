@@ -12,9 +12,6 @@ def make_test_case(expect: Expectation, category: Category = Category.LEGITIMATE
 
 
 def make_judge_client(judgment) -> AsyncMock:
-    """A fake AsyncOpenAI client whose chat.completions.create returns a
-    completion object shaped like the real SDK's, with the judgment model
-    serialized as the message content (matching model_validate_json usage)."""
     completion = SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=judgment.model_dump_json()))])
     client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=AsyncMock(return_value=completion))))
     return client

@@ -1,12 +1,3 @@
-"""Run the adversarial test suite against a RAG/agent API and report results.
-
-Usage:
-    python3 run_red_team.py
-
-Configure the target via .env (TARGET_URL) or environment variables — see
-src/red_team/config.py. Defaults to this project's own /agentic-ask endpoint
-running locally.
-"""
 import asyncio
 import logging
 from pathlib import Path
