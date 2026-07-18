@@ -1,5 +1,12 @@
 # RAG Red Team
 
+I built guardrails into my RAG project — it rejects bad questions and checks its own answers before returning them. But "I built guardrails" and "my guardrails actually work" are two different claims, and I only had a few manual examples to back up the second one.
+
+This tool tests that claim properly. It sends real adversarial questions to a RAG/agent API — prompt injection attempts, off-topic questions, made-up unanswerable ones, requests to leak secrets — and scores each answer automatically, using rules where possible and an LLM judge where the check is too fuzzy for a rule.
+
+Running it against my own system: 22 out of 23 passed. The one failure wasn't a small bug — it showed a real gap in how groundedness checks work. The system quoted a real number from a real paper, so its own "is this grounded?" check said yes. But that paper had nothing to do with the question asked. A groundedness check verifies an answer is supported by what was retrieved — it doesn't verify that what was retrieved actually answers the question.
+
+
 A small tool that tests RAG/agent APIs with tricky and hostile questions. It sends these questions to a target system and checks if its safety checks (guardrails) actually work. It does not read the answers by hand — it scores each answer automatically using clear pass/fail rules.
 
 Built to test the [Academic Paper Assistant](https://github.com/MeghaUkkali9/Academic-Paper-Assistant) project's `/agentic-ask` endpoint. But the part that connects to the target system is small and separate from the rest. To test a different RAG/agent API, you only need to write a new connector for that system, not rewrite the whole tool.
