@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "rag-red-team"
+name = "llm-guardrail-red-team"
 version = "0.1.0"
-description = "Adversarial test harness for RAG/agent APIs — checks whether guardrails actually hold up."
+description = "LLM Guardrail Red Team — adversarial test harness for RAG/agent APIs, checks whether guardrails actually hold up."
 requires-python = ">=3.12"
 dependencies = [
     "httpx>=0.28.1",
